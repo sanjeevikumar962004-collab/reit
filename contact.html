@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Contact Us - Stackly IT Solutions</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET 
+           ========================================================================== */
+        :root {
+            --brand-blue: #1a4ffa;
+            --brand-dark: #0a0f1c;
+            --brand-light: #f5f7fc;
+            --brand-gray: #e2e8f0;
+            --brand-text: #475569;
+            --white: #ffffff;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--brand-light);
+            color: var(--brand-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* ==========================================================================
+           TYPOGRAPHY & UTILITIES
+           ========================================================================== */
+        .h2-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .text-blue { color: var(--brand-blue); }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--brand-dark);
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-gray);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--white);
+        }
+        
+        .btn-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(10, 15, 28, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: transparent;
+            flex-shrink: 0;
+        }
+
+        .link-with-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .link-with-icon:hover .btn-circle {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            color: var(--white);
+        }
+        .link-with-icon:hover {
+            color: var(--brand-blue);
+        }
+
+        /* Generic GSAP classes */
+        .gs-fade-up { opacity: 0; visibility: hidden; }
+
+        /* ==========================================================================
+           NAVIGATION 
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 40px;
+        }
+        .nav-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 999px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            transition: var(--transition);
+        }
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--brand-dark);
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-blue); }
+        .nav-btn {
+            background: var(--brand-blue);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: #153eeb; }
+        
+        .mobile-only-link { display: none; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--brand-dark);
+            border: none;
+            cursor: pointer;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .hamburger {
+            width: 16px;
+            height: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--white);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: left center;
+        }
+        .mobile-menu-btn.active .hamburger span:nth-child(1) { transform: rotate(45deg); width: 14px; }
+        .mobile-menu-btn.active .hamburger span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .hamburger span:nth-child(3) { transform: rotate(-45deg); width: 14px; }
+
+        /* ==========================================================================
+           CONTACT HERO SECTION
+           ========================================================================== */
+        .contact-hero {
+            padding: 220px 0 120px;
+            position: relative;
+            background: var(--brand-light);
+            z-index: 10;
+        }
+        .hero-bg-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(26, 79, 250, 0.08) 0%, rgba(255, 255, 255, 0) 60%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .contact-hero .container {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        .hero-title-large {
+            font-size: clamp(3rem, 7vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-top: 30px;
+        }
+        .hero-title-line {
+            display: inline-block;
+            overflow: hidden;
+            padding-bottom: 10px;
+            vertical-align: bottom;
+        }
+        .hero-title-inner {
+            display: inline-block;
+            transform: translateY(110%);
+        }
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+            color: var(--brand-text);
+            max-width: 600px;
+            line-height: 1.6;
+            font-weight: 500;
+            margin: 30px auto 0;
+        }
+
+        /* ==========================================================================
+           MAIN CONTACT SECTION
+           ========================================================================== */
+        .contact-main {
+            background: var(--white);
+            padding: 120px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 20;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 80px;
+            align-items: start;
+        }
+
+        /* --- Left Info Column --- */
+        .contact-info-col {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .info-card {
+            background: var(--brand-light);
+            padding: 40px;
+            border-radius: 40px;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+        .info-card:hover {
+            background: var(--white);
+            border-color: var(--brand-gray);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.03);
+            transform: translateY(-5px);
+        }
+        .info-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--white);
+            border: 1px solid var(--brand-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-blue);
+            margin-bottom: 24px;
+            transition: var(--transition);
+        }
+        .info-card:hover .info-icon {
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+        }
+        .info-card h4 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: var(--brand-dark);
+        }
+        .info-card p, .info-card a {
+            font-size: 16px;
+            color: var(--brand-text);
+            line-height: 1.6;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .info-card a:hover {
+            color: var(--brand-blue);
+        }
+        .office-img {
+            width: 100%;
+            height: 250px;
+            border-radius: 40px;
+            object-fit: cover;
+            margin-top: 10px;
+        }
+
+        /* --- Right Form Column --- */
+        .contact-form-wrap {
+            background: var(--brand-light);
+            border-radius: 50px;
+            padding: 60px;
+        }
+        .form-header {
+            margin-bottom: 40px;
+        }
+        .form-header h3 {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+        .form-header p {
+            color: var(--brand-text);
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .contact-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        .form-group label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-left: 10px;
+        }
+        .contact-form input, 
+        .contact-form select, 
+        .contact-form textarea {
+            width: 100%;
+            background: var(--white);
+            border: 1px solid transparent;
+            border-radius: 20px;
+            padding: 20px 24px;
+            font-family: var(--font-main);
+            font-size: 16px;
+            color: var(--brand-dark);
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.01);
+        }
+        .contact-form select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23475569' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 20px center;
+        }
+        .contact-form textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+        .contact-form input::placeholder, 
+        .contact-form textarea::placeholder {
+            color: #94a3b8;
+        }
+        .contact-form input:focus, 
+        .contact-form select:focus, 
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--brand-blue);
+            box-shadow: 0 10px 30px rgba(26, 79, 250, 0.08);
+        }
+        .submit-btn {
+            grid-column: 1 / -1;
+            background: var(--brand-blue);
+            color: var(--white);
+            border: none;
+            padding: 24px;
+            border-radius: 999px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .submit-btn:hover {
+            background: #153eeb;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(26, 79, 250, 0.2);
+        }
+
+        /* ==========================================================================
+           LOCATIONS SECTION
+           ========================================================================== */
+        .locations-section {
+            background: var(--brand-light);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 21;
+        }
+        .locations-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .location-card {
+            background: var(--white);
+            border-radius: 40px;
+            padding: 40px;
+            display: flex;
+            gap: 30px;
+            align-items: center;
+            transition: var(--transition);
+            border: 1px solid transparent;
+        }
+        .location-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            border-color: var(--brand-gray);
+        }
+        .loc-img-wrap {
+            width: 200px;
+            height: 200px;
+            border-radius: 24px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+        .loc-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .location-card:hover .loc-img-wrap img {
+            transform: scale(1.1);
+        }
+        .loc-info h4 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: var(--brand-dark);
+        }
+        .loc-info p {
+            color: var(--brand-text);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .loc-contact {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            color: var(--brand-dark);
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        .loc-contact svg {
+            color: var(--brand-blue);
+        }
+
+        /* ==========================================================================
+           FAQ SECTION
+           ========================================================================== */
+        .faq-section {
+            background: var(--white);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 22;
+        }
+        .faq-container {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--brand-gray);
+            padding: 35px 0;
+            cursor: pointer;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--brand-dark);
+            transition: var(--transition);
+        }
+        .faq-item:hover .faq-question { color: var(--brand-blue); }
+        .faq-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--brand-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+            opacity: 0;
+            color: var(--brand-text);
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 500;
+            padding-right: 60px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+
+        /* ==========================================================================
+           FOOTER (Imported)
+           ========================================================================== */
+        .footer {
+            background: var(--brand-dark);
+            color: var(--white);
+            padding: 100px 0 40px;
+            margin-top: -60px;
+            border-radius: 60px 60px 0 0;
+            position: relative;
+            z-index: 23;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        .social-btn:hover {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1.5fr;
+            gap: 60px;
+        }
+        .footer-brand .logo { color: var(--white); }
+        .footer-brand p {
+            color: #94a3b8;
+            margin: 20px 0 30px;
+            line-height: 1.6;
+            max-width: 350px;
+            font-size: 16px;
+        }
+        .newsletter {
+            position: relative;
+            max-width: 350px;
+        }
+        .newsletter input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            outline: none;
+            font-family: inherit;
+        }
+        .newsletter input::placeholder { color: #64748b; }
+        .newsletter button {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            bottom: 6px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--brand-blue);
+            color: var(--white);
+            cursor: pointer;
+        }
+        .footer-col h5 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-col a, .footer-col li {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--white); }
+        .footer-bottom {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE OVERRIDES
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 60px; }
+            .contact-form-wrap { padding: 40px; }
+            .locations-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 992px) {
+            .navbar { padding: 0 20px; }
+            .nav-btn { display: none; }
+            .mobile-menu-btn { display: flex; }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                padding: 30px 20px;
+                margin-top: 15px;
+                border-radius: 24px;
+                border: 1px solid rgba(0,0,0,0.1);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                text-align: center;
+                flex-direction: column;
+                
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px) scale(0.98);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                pointer-events: none;
+            }
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+                pointer-events: auto;
+            }
+
+            .nav-links a { 
+                font-size: 18px; 
+                padding: 12px 0; 
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active a { opacity: 1; transform: translateY(0); }
+            
+            .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active a:nth-child(2) { transition-delay: 0.15s; }
+            .nav-links.active a:nth-child(3) { transition-delay: 0.2s; }
+            .nav-links.active a:nth-child(4) { transition-delay: 0.25s; }
+            .nav-links.active a:nth-child(5) { transition-delay: 0.3s; }
+            .nav-links.active a:nth-child(6) { transition-delay: 0.35s; }
+
+            .mobile-only-link {
+                display: inline-flex !important;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                background: var(--brand-blue);
+                color: var(--white) !important;
+                padding: 16px 32px !important;
+                border-radius: 999px;
+                margin-top: 20px;
+                font-weight: 700;
+            }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            
+            .contact-hero { padding: 160px 0 80px; }
+            .contact-main { padding: 80px 0; border-radius: 40px 40px 0 0; margin-top: -40px; }
+            
+            .contact-form { grid-template-columns: 1fr; }
+            .contact-form-wrap { padding: 30px 20px; border-radius: 30px; }
+            
+            .info-card { padding: 30px 20px; border-radius: 30px; }
+            
+            .locations-section, .faq-section { padding: 80px 0; border-radius: 40px 40px 0 0; margin-top: -40px; }
+            .location-card { flex-direction: column; padding: 30px 20px; text-align: center; gap: 20px;}
+            .loc-img-wrap { width: 100%; height: 250px; }
+            .loc-contact { justify-content: center; }
+            .faq-question { font-size: 1.2rem; }
+            .faq-icon { width: 36px; height: 36px; margin-left: 15px; }
+            .faq-answer { padding-right: 0; }
+
+            .footer {
+                padding: 80px 0 40px;
+                border-radius: 40px 40px 0 0;
+                margin-top: -40px;
+            }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 48px;">
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">IT Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html" class="text-blue active">Contact</a>
+                <a href="login.html" class="mobile-only-link">
+                    Login 
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            
+            <a href="login.html" class="nav-btn">
+                Login
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Contact Hero Section -->
+    <section class="contact-hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container">
+            <div class="tag mb-4 gs-hero-fade">Get In Touch</div>
+            <h1 class="hero-title-large">
+                <span class="hero-title-line"><span class="hero-title-inner">Let's Build Something</span></span><br>
+                <span class="hero-title-line"><span class="hero-title-inner text-blue">Extraordinary.</span></span>
+            </h1>
+            <p class="hero-subtitle gs-hero-fade">
+                Whether you need a complete IT infrastructure overhaul or a custom software solution, our team of experts is ready to accelerate your digital transformation.
+            </p>
+        </div>
+    </section>
+
+    <!-- Main Contact Section -->
+    <section class="contact-main">
+        <div class="container">
+            <div class="contact-grid">
+                
+                <!-- Left: Contact Info -->
+                <div class="contact-info-col">
+                    
+                    <div class="info-card gs-fade-up">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                        </div>
+                        <h4>Chat with us</h4>
+                        <p>Our friendly team is here to help.</p>
+                        <a href="mailto:hello@stacklyit.com" style="display:inline-block; margin-top: 8px; font-weight:700;">hello@stacklyit.com</a>
+                    </div>
+
+                    <div class="info-card gs-fade-up" style="transition-delay: 0.1s;">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                        </div>
+                        <h4>Call us</h4>
+                        <p>Mon-Fri from 9am to 6pm.</p>
+                        <a href="tel:+919876543210" style="display:inline-block; margin-top: 8px; font-weight:700;">+91 98765 43210</a>
+                    </div>
+
+                    <div class="info-card gs-fade-up" style="transition-delay: 0.2s;">
+                        <div class="info-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                        </div>
+                        <h4>Visit us</h4>
+                        <p>Come say hello at our headquarters.</p>
+                        <p style="margin-top: 8px; font-weight:700;">IT Park, Omalur Main Road,<br>Salem, Tamil Nadu 636004</p>
+                    </div>
+
+                    <div class="gs-fade-up" style="transition-delay: 0.3s;">
+                        <img src="images/hero image.webp" class="office-img" alt="Stackly IT Office">
+                    </div>
+
+                </div>
+
+                <!-- Right: Form -->
+                <div class="contact-form-wrap gs-fade-up">
+                    <div class="form-header">
+                        <h3>Send us a message</h3>
+                        <p>Fill out the form below and we'll get back to you within 24 hours.</p>
+                    </div>
+
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Doe" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="email">Work Email</label>
+                            <input type="email" id="email" placeholder="john@company.com" required>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="service">How can we help you?</label>
+                            <select id="service" required>
+                                <option value="" disabled selected>Select a service...</option>
+                                <option value="cloud">Cloud Migration & Architecture</option>
+                                <option value="software">Custom Software Development</option>
+                                <option value="security">Cybersecurity & Compliance</option>
+                                <option value="managed">Managed IT Services</option>
+                                <option value="other">Other Inquiry</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full-width">
+                            <label for="message">Project Details</label>
+                            <textarea id="message" placeholder="Tell us briefly about your current infrastructure and what you're trying to achieve..." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Send Message
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Locations Section -->
+    <section class="locations-section">
+        <div class="container">
+            <div class="gs-fade-up text-center" style="text-align: center;">
+                <div class="tag mb-4">Our Offices</div>
+                <h2 class="h2-title mt-4">Where to <span class="text-blue">Find Us.</span></h2>
+            </div>
+
+            <div class="locations-grid">
+                <!-- Location 1 -->
+                <div class="location-card gs-fade-up">
+                    <div class="loc-img-wrap">
+                        <img src="images/pexels-pixabay-265087.webp" alt="Salem Headquarters">
+                    </div>
+                    <div class="loc-info">
+                        <h4>Salem HQ</h4>
+                        <p>Our primary engineering and operations center for all domestic IT services.</p>
+                        <div class="loc-contact">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            IT Park, Omalur Main Road
+                        </div>
+                        <div class="loc-contact">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            +91 98765 43210
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Location 2 -->
+                <div class="location-card gs-fade-up" style="transition-delay: 0.1s;">
+                    <div class="loc-img-wrap">
+                        <img src="images/pexels-cottonbro-8468513.webp" alt="Bangalore Office">
+                    </div>
+                    <div class="loc-info">
+                        <h4>Bangalore Hub</h4>
+                        <p>Our global delivery center specializing in cloud infrastructure and cybersecurity.</p>
+                        <div class="loc-contact">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                            Tech Park, Whitefield
+                        </div>
+                        <div class="loc-contact">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                            +91 98765 09876
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="gs-fade-up text-center" style="text-align: center;">
+                <div class="tag mb-4">Answers</div>
+                <h2 class="h2-title mt-4">Pre-Inquiry <span class="text-blue">Questions.</span></h2>
+            </div>
+            
+            <div class="faq-container gs-fade-up">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        What is your typical response time?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        We aim to review and respond to all inquiries submitted through our contact form within 2 to 4 hours during regular business days. If you require immediate assistance, please call our direct line.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you provide emergency IT support?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes! For our active Managed IT and Enterprise clients, we offer 24/7/365 priority emergency support. If you are not a current client but are experiencing a severe breach, contact our main line and dial extension 9.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How does the onboarding process work?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        Once you submit an inquiry, our team will schedule a free 30-minute discovery call to understand your needs. From there, we perform a technical audit, provide a transparent proposal, and begin seamless deployment.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid gs-fade-up">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 60px;">
+                    </a>
+                    <p>Stackly IT Solutions delivers comprehensive technology services and enterprise-grade consulting to businesses in Salem and beyond.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Subscribe to our newsletter...">
+                        <button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="404.html">Our Vision</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="blog.html">Tech Blog</a></li>
+                        <li><a href="404.html" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Solutions</h5>
+                    <ul>
+                        <li><a href="404.html">Cloud Migration</a></li>
+                        <li><a href="404.html">Cybersecurity</a></li>
+                        <li><a href="404.html">Managed Services</a></li>
+                        <li><a href="404.html">Custom Software</a></li>
+                        <li><a href="404.html">IT Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Get in Touch</h5>
+                    <ul>
+                        <li>IT Park, Omalur Main Road,<br>Salem, Tamil Nadu 636004</li>
+                        <li style="margin-top: 10px;"><a href="mailto:hello@stacklyit.com" style="color: var(--white); font-weight: 700;">hello@stacklyit.com</a></li>
+                        <li><a href="tel:+919876543210" style="color: var(--white); font-weight: 700;">+91 98765 43210</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="404.html" class="social-btn" aria-label="LinkedIn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Twitter">
+                                    <span style="font-size: 14px; font-weight: bold;">𝕏</span>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Facebook">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Stackly IT Solutions. All rights reserved.</div>
+                <div>
+                    <a href="404.html" style="margin-right: 20px;">Privacy Policy</a>
+                    <a href="404.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // 2. Lenis Smooth Scrolling Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // 3. Hero Entrance Animations
+        const heroTl = gsap.timeline({ delay: 0.1 });
+        
+        heroTl.fromTo('.gs-hero-fade', 
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", stagger: 0.2 }
+        )
+        .fromTo('.hero-title-inner',
+            { y: '110%' },
+            { y: '0%', duration: 1.2, stagger: 0.15, ease: "power4.out" },
+            "-=0.8"
+        );
+
+        // 4. Form Submission Mock
+        document.querySelector('.contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('.submit-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = 'Sending... <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="animation: spin 1s linear infinite;"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>';
+            btn.style.opacity = '0.8';
+            
+            // Simulate API Call
+            setTimeout(() => {
+                btn.innerHTML = 'Message Sent! <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                btn.style.background = '#10b981'; // Success Green
+                e.target.reset();
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.style.background = 'var(--brand-blue)';
+                    btn.style.opacity = '1';
+                }, 3000);
+            }, 1500);
+        });
+
+        // Add keyframes for the loading spinner dynamically
+        const style = document.createElement('style');
+        style.innerHTML = `@keyframes spin { 100% { transform: rotate(360deg); } }`;
+        document.head.appendChild(style);
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(faq => faq.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+
+        // 5. Generic Fade Ups for other elements (FIXED)
+        document.querySelectorAll('h2, h3, h4, p, .footer a, label, input, select, textarea, .location-card').forEach(el => {
+            // Skip elements inside hero or specialized animations
+            if (!el.closest('.gs-fade-up') && !el.closest('.navbar') && !el.closest('.contact-hero')) {
+                el.classList.add('gs-fade-up');
+            }
+        });
+
+        gsap.utils.toArray('.gs-fade-up').forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 40, autoAlpha: 0 },
+                {
+                    y: 0, 
+                    autoAlpha: 1, 
+                    duration: 1, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+    </script>
+</body>
+</html>

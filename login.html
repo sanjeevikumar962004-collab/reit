@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stackly IT Solutions</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --brand-blue: #1a4ffa;
+            --brand-dark: #0a0f1c;
+            --brand-light: #f4f7fb;
+            --brand-gray: #e2e8f0;
+            --brand-text: #64748b;
+            --white: #ffffff;
+            --danger: #ef4444;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.3s ease;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); }
+        body { background-color: var(--brand-light); color: var(--brand-dark); min-height: 100vh; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        
+        /* Background Glows */
+        .bg-glow-1 { position: absolute; top: -20%; left: -10%; width: 60vw; height: 60vw; background: radial-gradient(circle, rgba(26, 79, 250, 0.15) 0%, transparent 60%); filter: blur(60px); z-index: 0; }
+        .bg-glow-2 { position: absolute; bottom: -20%; right: -10%; width: 50vw; height: 50vw; background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 60%); filter: blur(60px); z-index: 0; }
+
+        .auth-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--white);
+            border-radius: 40px;
+            padding: 50px;
+            width: 100%;
+            max-width: 480px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
+            z-index: 10;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .auth-header { text-align: center; margin-bottom: 40px; }
+        .auth-logo { display: inline-flex; align-items: center; gap: 10px; font-size: 24px; font-weight: 800; color: var(--brand-dark); margin-bottom: 20px; text-decoration: none;}
+        .auth-header h2 { font-size: 28px; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+        .auth-header p { color: var(--brand-text); font-weight: 500; font-size: 15px; }
+
+        /* Role Toggle */
+        .role-toggle {
+            display: flex;
+            background: var(--brand-gray);
+            border-radius: 999px;
+            padding: 6px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .role-btn {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--brand-text);
+            cursor: pointer;
+            border-radius: 999px;
+            position: relative;
+            z-index: 2;
+            transition: var(--transition);
+        }
+        .role-btn.active { color: var(--brand-blue); }
+        .role-slider {
+            position: absolute;
+            top: 6px; left: 6px;
+            width: calc(50% - 6px);
+            height: calc(100% - 12px);
+            background: var(--white);
+            border-radius: 999px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1;
+        }
+        .role-toggle[data-role="admin"] .role-slider { transform: translateX(100%); }
+
+        /* Form Elements */
+        .form-group { margin-bottom: 24px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 700; margin-bottom: 8px; margin-left: 12px; }
+        .form-control {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-gray);
+            background: var(--white);
+            font-size: 15px;
+            font-family: inherit;
+            color: var(--brand-dark);
+            transition: var(--transition);
+        }
+        .form-control:focus { outline: none; border-color: var(--brand-blue); box-shadow: 0 0 0 4px rgba(26, 79, 250, 0.1); }
+        .form-control.error { border-color: var(--danger); }
+        .error-text { color: var(--danger); font-size: 12px; font-weight: 600; margin-top: 6px; margin-left: 12px; display: none; }
+        .form-control.error + .error-text { display: block; }
+
+        .forgot-link { display: block; text-align: right; font-size: 13px; font-weight: 700; color: var(--brand-blue); text-decoration: none; margin-bottom: 30px; }
+        .forgot-link:hover { text-decoration: underline; }
+
+        .submit-btn {
+            width: 100%;
+            padding: 18px;
+            border-radius: 999px;
+            background: var(--brand-blue);
+            color: var(--white);
+            border: none;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .submit-btn:hover { background: #153eeb; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(26, 79, 250, 0.2); }
+
+        .auth-footer { text-align: center; margin-top: 30px; font-size: 14px; font-weight: 500; color: var(--brand-text); }
+        .auth-footer a { color: var(--brand-dark); font-weight: 700; text-decoration: none; transition: color 0.3s; }
+        .auth-footer a:hover { color: var(--brand-blue); }
+
+        @media (max-width: 576px) {
+            .auth-card { padding: 40px 24px; border-radius: 30px; margin: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-glow-1"></div>
+    <div class="bg-glow-2"></div>
+
+    <div class="auth-card" id="authCard">
+        <div class="auth-header">
+            <a href="index.html" class="auth-logo">
+                <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 64px;">
+            </a>
+            <h2>Welcome Back</h2>
+            <p>Enter your credentials to access your dashboard.</p>
+        </div>
+
+        <div class="role-toggle" id="roleToggle" data-role="user">
+            <div class="role-slider"></div>
+            <div class="role-btn active" data-val="user">User Login</div>
+            <div class="role-btn" data-val="admin">Admin Login</div>
+        </div>
+
+        <form id="loginForm" novalidate>
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="you@company.com" required>
+                <div class="error-text">Please enter a valid email address.</div>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" class="form-control" placeholder="••••••••" required minlength="6">
+                <div class="error-text">Password must be at least 6 characters.</div>
+            </div>
+
+            <a href="forgot-password.html" class="forgot-link">Forgot Password?</a>
+
+            <button type="submit" class="submit-btn" id="submitBtn">Log In as User</button>
+        </form>
+
+        <div class="auth-footer">
+            Don't have an account? <a href="signup.html">Sign Up</a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script>
+        // Entrance Animation
+        gsap.to("#authCard", { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", delay: 0.2 });
+
+        // Role Toggle Logic
+        const roleToggle = document.getElementById('roleToggle');
+        const roleBtns = document.querySelectorAll('.role-btn');
+        const submitBtn = document.getElementById('submitBtn');
+        let currentRole = 'user';
+
+        roleBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                roleBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentRole = btn.dataset.val;
+                roleToggle.setAttribute('data-role', currentRole);
+                
+                // Update Button Text
+                submitBtn.textContent = currentRole === 'admin' ? 'Log In as Admin' : 'Log In as User';
+            });
+        });
+
+        // Form Validation & Submit
+        const form = document.getElementById('loginForm');
+        const emailInput = document.getElementById('email');
+        const passInput = document.getElementById('password');
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            // Validate Email
+            if (!validateEmail(emailInput.value)) {
+                emailInput.classList.add('error');
+                isValid = false;
+            } else {
+                emailInput.classList.remove('error');
+            }
+
+            // Validate Password
+            if (passInput.value.length < 6) {
+                passInput.classList.add('error');
+                isValid = false;
+            } else {
+                passInput.classList.remove('error');
+            }
+
+            if (isValid) {
+                // Store email and role for Dashboard
+                localStorage.setItem('stackly_user_email', emailInput.value);
+                localStorage.setItem('stackly_user_role', currentRole);
+                
+                // Animate out and redirect
+                submitBtn.innerHTML = 'Authenticating...';
+                gsap.to("#authCard", { 
+                    y: -20, opacity: 0, duration: 0.4, ease: "power2.in",
+                    onComplete: () => {
+                        window.location.href = currentRole === 'admin' ? 'admin-dashboard.html' : 'user-dashboard.html';
+                    }
+                });
+            }
+        });
+
+        // Clear errors on input
+        [emailInput, passInput].forEach(input => {
+            input.addEventListener('input', () => input.classList.remove('error'));
+        });
+    </script>
+</body>
+</html>

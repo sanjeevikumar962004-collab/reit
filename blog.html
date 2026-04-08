@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Tech Insights & Blog - Stackly IT Solutions</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET (Imported from Home/About)
+           ========================================================================== */
+        :root {
+            --brand-blue: #1a4ffa;
+            --brand-dark: #0a0f1c;
+            --brand-light: #f5f7fc;
+            --brand-gray: #e2e8f0;
+            --brand-text: #475569;
+            --white: #ffffff;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--brand-light);
+            color: var(--brand-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* ==========================================================================
+           TYPOGRAPHY & UTILITIES
+           ========================================================================== */
+        .h2-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .text-blue { color: var(--brand-blue); }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--brand-dark);
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-gray);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--white);
+        }
+        .tag-blue {
+            background: rgba(26, 79, 250, 0.1);
+            color: var(--brand-blue);
+            border-color: transparent;
+        }
+        
+        .btn-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(10, 15, 28, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: transparent;
+            flex-shrink: 0;
+        }
+
+        .link-with-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .link-with-icon:hover .btn-circle {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            color: var(--white);
+        }
+        .link-with-icon:hover {
+            color: var(--brand-blue);
+        }
+
+        /* Generic GSAP classes */
+        .gs-fade-up { opacity: 0; visibility: hidden; }
+
+        /* ==========================================================================
+           NAVIGATION 
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 40px;
+        }
+        .nav-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 999px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            transition: var(--transition);
+        }
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--brand-dark);
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--brand-blue); }
+        .nav-btn {
+            background: var(--brand-blue);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: #153eeb; }
+        
+        .mobile-only-link { display: none; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--brand-dark);
+            border: none;
+            cursor: pointer;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .hamburger {
+            width: 16px;
+            height: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--white);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: left center;
+        }
+        .mobile-menu-btn.active .hamburger span:nth-child(1) { transform: rotate(45deg); width: 14px; }
+        .mobile-menu-btn.active .hamburger span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .hamburger span:nth-child(3) { transform: rotate(-45deg); width: 14px; }
+
+        /* ==========================================================================
+           BLOG HERO SECTION
+           ========================================================================== */
+        .blog-hero {
+            padding: 220px 0 120px;
+            position: relative;
+            background: var(--white);
+            border-radius: 0 0 60px 60px;
+            z-index: 10;
+        }
+        .hero-bg-glow {
+            position: absolute;
+            top: 0;
+            left: 10%;
+            width: 60vw;
+            height: 60vw;
+            background: radial-gradient(circle, rgba(26, 79, 250, 0.08) 0%, rgba(255, 255, 255, 0) 70%);
+            border-radius: 50%;
+            z-index: 0;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .blog-hero .container {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 40px;
+        }
+        .hero-title-large {
+            font-size: clamp(3rem, 7vw, 6.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -0.03em;
+            margin-top: 30px;
+            max-width: 800px;
+        }
+        .hero-title-line {
+            display: block;
+            overflow: hidden;
+            padding-bottom: 10px;
+        }
+        .hero-title-inner {
+            display: block;
+            transform: translateY(110%);
+        }
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 1.5vw, 1.25rem);
+            color: var(--brand-text);
+            max-width: 400px;
+            line-height: 1.6;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* ==========================================================================
+           FEATURED POST SECTION
+           ========================================================================== */
+        .featured-section {
+            padding: 80px 0;
+            position: relative;
+            margin-top: -60px;
+            z-index: 15;
+        }
+        .featured-card {
+            background: var(--brand-dark);
+            border-radius: 40px;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 60px;
+            align-items: center;
+            color: var(--white);
+            transition: var(--transition);
+            overflow: hidden;
+            position: relative;
+        }
+        .featured-img-wrap {
+            width: 100%;
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        .featured-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .featured-card:hover .featured-img {
+            transform: scale(1.05);
+        }
+        .featured-content {
+            padding-right: 60px;
+        }
+        .post-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #94a3b8;
+        }
+        .post-meta-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: #94a3b8;
+        }
+        .featured-content h2 {
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.15;
+            margin-bottom: 24px;
+            letter-spacing: -0.02em;
+        }
+        .featured-content p {
+            font-size: 18px;
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .read-more-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        .read-more-btn .btn-circle {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            width: 40px;
+            height: 40px;
+        }
+        .featured-card:hover .read-more-btn {
+            gap: 16px;
+        }
+
+        /* ==========================================================================
+           PROJECTS / CASE STUDIES
+           ========================================================================== */
+        .projects-section {
+            background: var(--brand-light);
+            padding: 140px 0;
+        }
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .project-card {
+            cursor: pointer;
+        }
+        .project-card:nth-child(even) {
+            margin-top: 160px;
+        }
+        .proj-num {
+            font-size: clamp(60px, 8vw, 100px);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 30px;
+            color: var(--brand-dark);
+            letter-spacing: -0.05em;
+        }
+        .proj-img-wrap {
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #e2e8f0;
+            width: 100%;
+        }
+        .proj-img-wrap.portrait { aspect-ratio: 4/5; }
+        .proj-img-wrap.square { aspect-ratio: 1/1; }
+        .proj-img-wrap.landscape { aspect-ratio: 16/9; }
+        
+        .proj-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* Extra scale to allow for parallax */
+            transform: scale(1.15);
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover .proj-img {
+            transform: scale(1.2);
+        }
+        .proj-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 15, 28, 0.1);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .project-card:hover .proj-overlay { opacity: 1; }
+        .proj-btn {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-dark);
+            transform: scale(0.8) translateY(20px);
+            transition: var(--transition);
+        }
+        .project-card:hover .proj-btn {
+            transform: scale(1) translateY(0);
+        }
+        .proj-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .proj-meta h3 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           CTA / NEWSLETTER
+           ========================================================================== */
+        .cta-section {
+            background: var(--white);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            position: relative;
+            z-index: 22;
+        }
+        .cta-box {
+            background: var(--brand-dark);
+            border-radius: 60px;
+            padding: 100px 60px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(26, 79, 250, 0.4) 0%, rgba(10, 15, 28, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .cta-title { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; line-height: 1.1; margin-bottom: 20px; letter-spacing: -0.03em;}
+        .cta-desc { font-size: 18px; color: #94a3b8; max-width: 500px; margin: 0 auto 40px; line-height: 1.6; }
+        
+        .large-newsletter {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            display: flex;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 999px;
+            padding: 8px;
+            transition: var(--transition);
+        }
+        .large-newsletter:focus-within {
+            border-color: var(--brand-blue);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        .large-newsletter input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 16px 24px;
+            color: var(--white);
+            outline: none;
+            font-family: inherit;
+            font-size: 16px;
+        }
+        .large-newsletter input::placeholder { color: #64748b; }
+        .large-newsletter button {
+            background: var(--brand-blue);
+            color: var(--white);
+            border: none;
+            padding: 0 32px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 16px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .large-newsletter button:hover {
+            background: #153eeb;
+        }
+
+        /* ==========================================================================
+           FOOTER (Imported)
+           ========================================================================== */
+        .footer {
+            background: var(--brand-dark);
+            color: var(--white);
+            padding: 100px 0 40px;
+            margin-top: -60px;
+            border-radius: 60px 60px 0 0;
+            position: relative;
+            z-index: 23;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        .social-btn:hover {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1.5fr;
+            gap: 60px;
+        }
+        .footer-brand .logo { color: var(--white); }
+        .footer-brand p {
+            color: #94a3b8;
+            margin: 20px 0 30px;
+            line-height: 1.6;
+            max-width: 350px;
+            font-size: 16px;
+        }
+        .newsletter {
+            position: relative;
+            max-width: 350px;
+        }
+        .newsletter input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            outline: none;
+            font-family: inherit;
+        }
+        .newsletter input::placeholder { color: #64748b; }
+        .newsletter button {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            bottom: 6px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--brand-blue);
+            color: var(--white);
+            cursor: pointer;
+        }
+        .footer-col h5 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-col a, .footer-col li {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--white); }
+        .footer-bottom {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        /* ==========================================================================
+           RESPONSIVE OVERRIDES
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .projects-grid { gap: 30px; }
+            .project-card:nth-child(even) { margin-top: 80px; }
+            .featured-card { grid-template-columns: 1fr; gap: 40px; }
+            .featured-img-wrap { height: 400px; }
+            .featured-content { padding-right: 0; padding-bottom: 20px; }
+        }
+
+        @media (max-width: 992px) {
+            .navbar { padding: 0 20px; }
+            .nav-btn { display: none; }
+            .mobile-menu-btn { display: flex; }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                padding: 30px 20px;
+                margin-top: 15px;
+                border-radius: 24px;
+                border: 1px solid rgba(0,0,0,0.1);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                text-align: center;
+                flex-direction: column;
+                
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px) scale(0.98);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                pointer-events: none;
+            }
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+                pointer-events: auto;
+            }
+
+            .nav-links a { 
+                font-size: 18px; 
+                padding: 12px 0; 
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active a { opacity: 1; transform: translateY(0); }
+            
+            .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active a:nth-child(2) { transition-delay: 0.15s; }
+            .nav-links.active a:nth-child(3) { transition-delay: 0.2s; }
+            .nav-links.active a:nth-child(4) { transition-delay: 0.25s; }
+            .nav-links.active a:nth-child(5) { transition-delay: 0.3s; }
+            .nav-links.active a:nth-child(6) { transition-delay: 0.35s; }
+
+            .mobile-only-link {
+                display: inline-flex !important;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                background: var(--brand-blue);
+                color: var(--white) !important;
+                padding: 16px 32px !important;
+                border-radius: 999px;
+                margin-top: 20px;
+                font-weight: 700;
+            }
+
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .blog-hero .container { flex-direction: column; align-items: flex-start; gap: 20px; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            
+            .blog-hero { padding: 160px 0 80px; border-radius: 0 0 40px 40px; }
+            .featured-section { margin-top: -40px; padding: 60px 0; }
+            
+            .featured-img-wrap { height: 300px; border-radius: 20px; }
+            .featured-card { padding: 15px; border-radius: 30px; }
+            
+            .projects-header { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .projects-grid { grid-template-columns: 1fr; gap: 60px; }
+            .project-card:nth-child(even) { margin-top: 0; }
+            
+            .cta-section { padding: 80px 0; }
+            .cta-box { padding: 60px 20px; border-radius: 30px; }
+            .large-newsletter { flex-direction: column; border-radius: 24px; padding: 15px; gap: 15px; background: rgba(255,255,255,0.05); }
+            .large-newsletter input { padding: 10px; text-align: center; }
+            .large-newsletter button { padding: 16px; border-radius: 12px; width: 100%; }
+
+            .footer {
+                padding: 80px 0 40px;
+                border-radius: 40px 40px 0 0;
+                margin-top: -40px;
+            }
+            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 48px;">
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">IT Services</a>
+                <a href="blog.html" class="text-blue active">Blog</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="mobile-only-link">
+                    Login 
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            
+            <a href="login.html" class="nav-btn">
+                Login
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Blog Hero Section -->
+    <section class="blog-hero">
+        <div class="hero-bg-glow"></div>
+        <div class="container">
+            <div>
+                <div class="tag mb-4 gs-hero-fade">Tech Journal</div>
+                <h1 class="hero-title-large">
+                    <span class="hero-title-line"><span class="hero-title-inner">Insights &</span></span>
+                    <span class="hero-title-line"><span class="hero-title-inner text-blue">Innovation.</span></span>
+                </h1>
+            </div>
+            
+            <p class="hero-subtitle gs-hero-fade">
+                Discover the latest trends in cloud computing, cybersecurity, software engineering, and enterprise IT strategy.
+            </p>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-header gs-fade-up">
+                <div>
+                    <div class="tag mb-4">Case Studies</div>
+                    <h2 class="h2-title mt-4">Our Latest <span class="text-blue">Deployments.</span></h2>
+                </div>
+                <a href="404.html" class="link-with-icon">
+                    View All Case Studies
+                    <div class="btn-circle bg-white">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 01 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">01</div>
+                    <div class="proj-img-wrap portrait">
+                        <img src="images/pexels-shahadat-hossain-2156108532-34317747.webp" class="proj-img proj-parallax" alt="Salem Smart City ERP">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>Salem Smart City ERP</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Enterprise Software</span>
+                    </div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">02</div>
+                    <div class="proj-img-wrap square">
+                        <img src="images/pexels-pixabay-265087.webp" class="proj-img proj-parallax" alt="HealthTech Cloud">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>HealthTech Cloud</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Cloud Migration</span>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">03</div>
+                    <div class="proj-img-wrap landscape">
+                        <img src="images/pexels-shoper-pl-550490863-17485350.webp" class="proj-img proj-parallax" alt="FinSecure Platform">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>FinSecure Platform</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Cybersecurity</span>
+                    </div>
+                </div>
+
+                 <!-- Project 04 -->
+                 <div class="project-card gs-fade-up">
+                    <div class="proj-num">04</div>
+                    <div class="proj-img-wrap square">
+                        <img src="images/pexels-sora-shimazaki-5926382.webp" class="proj-img proj-parallax" alt="RetailTech POS">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>RetailTech POS</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Web Application</span>
+                    </div>
+                </div>
+
+                <!-- Project 05 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">05</div>
+                    <div class="proj-img-wrap portrait">
+                        <img src="images/pexels-cottonbro-8468513.webp" class="proj-img proj-parallax" alt="EduConnect Portal">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>EduConnect Portal</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">EdTech Solutions</span>
+                    </div>
+                </div>
+
+                <!-- Project 06 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">06</div>
+                    <div class="proj-img-wrap landscape">
+                        <img src="images/pexels-mikhail-nilov-7988761.webp" class="proj-img proj-parallax" alt="Global Logistics Hub">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>Global Logistics Hub</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Supply Chain IT</span>
+                    </div>
+                </div>
+
+                <!-- Project 07 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">07</div>
+                    <div class="proj-img-wrap square">
+                        <img src="images/pexels-mikhail-nilov-7988208.webp" class="proj-img proj-parallax" alt="Smart Grid Analytics">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>Smart Grid Analytics</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Data & Analytics</span>
+                    </div>
+                </div>
+
+                <!-- Project 08 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">08</div>
+                    <div class="proj-img-wrap portrait">
+                        <img src="images/pexels-mikhail-nilov-7988125.webp" class="proj-img proj-parallax" alt="Telecom 5G Infrastructure">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>Telecom 5G Upgrade</h3>
+                        <span class="tag-small" style="font-weight:600; color:var(--brand-text);">Network Systems</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box gs-fade-up">
+                <h2 class="cta-title">Stay Ahead of the Curve.</h2>
+                <p class="cta-desc">Join 10,000+ IT leaders receiving our best technical articles, case studies, and engineering playbooks directly to their inbox every week.</p>
+                
+                <div class="large-newsletter">
+                    <input type="email" placeholder="Enter your work email address">
+                    <button>Subscribe Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid gs-fade-up">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 60px;">
+                    </a>
+                    <p>Stackly IT Solutions delivers comprehensive technology services and enterprise-grade consulting to businesses in Salem and beyond.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Subscribe to our newsletter...">
+                        <button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="404.html">Our Vision</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="404.html" class="text-white">Tech Blog</a></li>
+                        <li><a href="404.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Solutions</h5>
+                    <ul>
+                        <li><a href="404.html">Cloud Migration</a></li>
+                        <li><a href="404.html">Cybersecurity</a></li>
+                        <li><a href="404.html">Managed Services</a></li>
+                        <li><a href="404.html">Custom Software</a></li>
+                        <li><a href="404.html">IT Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Get in Touch</h5>
+                    <ul>
+                        <li>IT Park, Omalur Main Road,<br>Salem, Tamil Nadu 636004</li>
+                        <li style="margin-top: 10px;"><a href="mailto:hello@stacklyit.com" style="color: var(--white); font-weight: 700;">hello@stacklyit.com</a></li>
+                        <li><a href="tel:+919876543210" style="color: var(--white); font-weight: 700;">+91 98765 43210</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="404.html" class="social-btn" aria-label="LinkedIn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Twitter">
+                                    <span style="font-size: 14px; font-weight: bold;">𝕏</span>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Facebook">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Stackly IT Solutions. All rights reserved.</div>
+                <div>
+                    <a href="404.html" style="margin-right: 20px;">Privacy Policy</a>
+                    <a href="404.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // 1. Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // 2. Lenis Smooth Scrolling Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // 3. Hero Entrance Animations
+        const heroTl = gsap.timeline({ delay: 0.1 });
+        
+        heroTl.fromTo('.gs-hero-fade', 
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", stagger: 0.2 }
+        )
+        .fromTo('.hero-title-inner',
+            { y: '110%' },
+            { y: '0%', duration: 1.2, stagger: 0.15, ease: "power4.out" },
+            "-=0.8"
+        );
+
+        // 4. Project Image Parallax
+        gsap.utils.toArray('.proj-parallax').forEach(img => {
+            gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom", 
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // 5. Generic Fade Ups for other elements (Auto-apply)
+        document.querySelectorAll('h2, h3, h4, p, .footer a').forEach(el => {
+            // Skip elements inside hero or specialized animations
+            if (!el.closest('.gs-fade-up') && !el.closest('.navbar') && !el.closest('.blog-hero') && !el.closest('.project-card')) {
+                el.classList.add('gs-fade-up');
+            }
+        });
+
+        gsap.utils.toArray('.gs-fade-up').forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 40, autoAlpha: 0 },
+                {
+                    y: 0, 
+                    autoAlpha: 1, 
+                    duration: 1, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+    </script>
+</body>
+</html>

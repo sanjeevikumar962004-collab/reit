@@ -1,0 +1,1883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Stackly IT Solutions - Salem</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* ==========================================================================
+           CSS VARIABLES & RESET
+           ========================================================================== */
+        :root {
+            --brand-blue: #1a4ffa;
+            --brand-dark: #0a0f1c;
+            --brand-light: #f5f7fc;
+            --brand-gray: #e2e8f0;
+            --brand-text: #475569;
+            --white: #ffffff;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+            --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--brand-light);
+            color: var(--brand-dark);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        /* Lenis Smooth Scroll */
+        html.lenis { height: auto; }
+        .lenis.lenis-smooth { scroll-behavior: auto; }
+        .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+        .lenis.lenis-stopped { overflow: hidden; }
+        .lenis.lenis-scrolling iframe { pointer-events: none; }
+
+        /* ==========================================================================
+           TYPOGRAPHY & UTILITIES
+           ========================================================================== */
+        .h2-title {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            font-weight: 700;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+        .text-blue { color: var(--brand-blue); }
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 2px var(--brand-dark);
+        }
+        .tag {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 20px;
+            border-radius: 999px;
+            border: 1px solid var(--brand-gray);
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            background: var(--white);
+        }
+        
+        .btn-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid rgba(10, 15, 28, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            background: transparent;
+            flex-shrink: 0;
+        }
+
+        .link-with-icon {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .link-with-icon:hover .btn-circle {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            color: var(--white);
+        }
+        .link-with-icon:hover {
+            color: var(--brand-blue);
+        }
+
+        /* ==========================================================================
+           NAVIGATION
+           ========================================================================== */
+        .navbar {
+            position: fixed;
+            top: 20px;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 0 40px;
+        }
+        .nav-inner {
+            max-width: 1360px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 999px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.03);
+            position: relative;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            transition: var(--transition);
+        }
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--brand-dark);
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover { color: var(--brand-blue); }
+        .nav-btn {
+            background: var(--brand-blue);
+            color: var(--white);
+            padding: 14px 28px;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.3s;
+        }
+        .nav-btn:hover { background: #153eeb; }
+        
+        .mobile-only-link { display: none; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: var(--brand-dark);
+            border: none;
+            cursor: pointer;
+            color: var(--white);
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-weight: 600;
+            font-size: 14px;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+        
+        .hamburger {
+            width: 16px;
+            height: 12px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .hamburger span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background-color: var(--white);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform-origin: left center;
+        }
+        .mobile-menu-btn.active .hamburger span:nth-child(1) { transform: rotate(45deg); width: 14px; }
+        .mobile-menu-btn.active .hamburger span:nth-child(2) { opacity: 0; }
+        .mobile-menu-btn.active .hamburger span:nth-child(3) { transform: rotate(-45deg); width: 14px; }
+
+        /* ==========================================================================
+           HERO & REVEAL SECTION
+           ========================================================================== */
+        #hero-scroll-container {
+            position: relative;
+            height: 300vh;
+            z-index: 10;
+        }
+        .hero-sticky {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            height: 100svh; /* Better support for mobile browsers */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding-bottom: 80px;
+            background-color: var(--brand-light);
+        }
+
+        .hero {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+        }
+        
+        .hero-bg-glow {
+            position: absolute;
+            top: -50%;
+            left: 10%;
+            width: 80vw;
+            height: 80vw;
+            background: radial-gradient(circle, rgba(26, 79, 250, 0.12) 0%, rgba(255, 255, 255, 0) 60%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            pointer-events: none;
+        }
+        .hero-title-wrapper {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-title {
+            font-size: 16vw;
+            font-weight: 800;
+            line-height: 0.85;
+            letter-spacing: -0.05em;
+            color: var(--brand-blue);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: nowrap;
+        }
+        
+        .char-mask {
+            display: inline-flex;
+            overflow: hidden;
+            vertical-align: top;
+            padding-bottom: 0.1em;
+            margin-bottom: -0.1em;
+        }
+        .hero-char {
+            display: inline-block;
+            transform: translateY(110%);
+            will-change: transform, opacity;
+        }
+        .hero-pill-wrap {
+            display: inline-flex;
+            align-items: center;
+            transform: translateY(110%);
+            height: 0.75em;
+            margin: 0 0.04em;
+            position: relative;
+            will-change: transform;
+        }
+        
+        .hero-pill-placeholder {
+            width: 0.85em; 
+            height: 100%;
+            display: inline-block;
+        }
+        
+        .hero-pill-o {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 0;
+            height: 100%;
+            border: 0.12em solid var(--brand-blue);
+            border-radius: 999px;
+            box-sizing: border-box;
+            will-change: width, opacity;
+        }
+
+        .hero-bottom-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 40px;
+            will-change: transform, opacity;
+        }
+        .hero-desc {
+            max-width: 450px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--brand-text);
+            font-weight: 500;
+        }
+
+        .absolute-reveal-mask {
+            position: absolute;
+            z-index: 50;
+            border: 0.12em solid var(--brand-blue);
+            border-radius: 999px;
+            overflow: hidden;
+            background-color: transparent;
+            display: none;
+            will-change: left, top, width, height, border-width, border-radius;
+        }
+
+        .fixed-reveal-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(1.2);
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            opacity: 0;
+            will-change: opacity, transform;
+        }
+
+        .marquee-bg {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100vw;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .marquee-bg-track {
+            display: flex;
+            white-space: nowrap;
+            font-size: 15vw;
+            font-weight: 800;
+            line-height: 1;
+            color: var(--white);
+            opacity: 0.2;
+            animation: scrollText 30s linear infinite;
+        }
+        @keyframes scrollText {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .fixed-reveal-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            text-align: center;
+            color: var(--white);
+            z-index: 10;
+            opacity: 0;
+            padding: 0 20px;
+        }
+        .fixed-reveal-text h2 {
+            font-size: clamp(2rem, 6vw, 6rem);
+            line-height: 1.1;
+            font-weight: 700;
+            text-shadow: 0px 4px 20px rgba(0,0,0,0.5);
+        }
+
+        /* ==========================================================================
+           ABOUT SECTION
+           ========================================================================== */
+        .section-panel {
+            background: var(--white);
+            border-radius: 60px 60px 0 0;
+            padding: 140px 0;
+            position: relative;
+            z-index: 30;
+            margin-top: -60px;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 5fr 7fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-image {
+            width: 100%;
+            height: 600px;
+            border-radius: 40px;
+            object-fit: cover;
+        }
+        .about-content h3 {
+            font-size: clamp(2rem, 3.5vw, 3.5rem);
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 30px 0;
+        }
+        .about-content p {
+            font-size: 20px;
+            color: var(--brand-text);
+            line-height: 1.6;
+            margin-bottom: 40px;
+            max-width: 600px;
+        }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .stat-card {
+            background: var(--brand-light);
+            border-radius: 30px;
+            padding: 40px;
+            transition: var(--transition);
+        }
+        .stat-card.interactive:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+        .stat-card.interactive:hover .stat-label { color: rgba(255,255,255,0.8); }
+        .stat-card.interactive:hover .stat-icon { background: var(--white); color: var(--brand-blue); }
+        
+        .stat-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--brand-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            margin-bottom: 20px;
+            transition: var(--transition);
+        }
+        .stat-number {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 8px;
+        }
+        .stat-label {
+            font-size: 14px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--brand-text);
+            transition: var(--transition);
+        }
+
+        /* ==========================================================================
+           SERVICES GRID MARQUEE
+           ========================================================================== */
+        .services-area {
+            background: var(--brand-light);
+            padding: 100px 0;
+        }
+        .pill-marquee {
+            overflow: hidden;
+            margin-bottom: 80px;
+        }
+        .pill-track {
+            display: flex;
+            gap: 20px;
+            animation: scrollPills 20s linear infinite;
+            width: max-content;
+        }
+        .pill-item {
+            background: var(--white);
+            padding: 20px 40px;
+            border-radius: 999px;
+            font-size: 24px;
+            font-weight: 600;
+            white-space: nowrap;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.02);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .service-box {
+            background: var(--white);
+            border-radius: 40px;
+            padding: 60px 40px;
+            text-align: center;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .service-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            color: var(--brand-blue);
+            transition: var(--transition);
+        }
+        .service-box:hover .service-icon {
+            transform: scale(1.1);
+        }
+        .service-box h4 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .service-box p {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--brand-text);
+            letter-spacing: 0.05em;
+        }
+
+        /* ==========================================================================
+           INTERACTIVE SERVICES
+           ========================================================================== */
+        .interactive-section {
+            background: var(--white);
+            padding: 140px 0;
+        }
+        .int-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+        .int-layout {
+            display: flex;
+            gap: 60px;
+            align-items: center;
+        }
+        .int-visual {
+            flex: 0 0 40%;
+            background: var(--brand-light);
+            border-radius: 40px;
+            aspect-ratio: 4/5;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .int-images {
+            flex: 1;
+            position: relative;
+            min-height: 300px;
+        }
+        .int-img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .int-img.active { opacity: 1; }
+        .int-btn {
+            margin: 20px;
+            background: var(--white);
+            border-radius: 999px;
+            padding: 16px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            border: 1px solid var(--brand-gray);
+            transition: var(--transition);
+            cursor: pointer;
+            z-index: 10;
+        }
+        .int-btn:hover {
+            background: var(--brand-blue);
+            color: var(--white);
+        }
+
+        .int-list {
+            flex: 0 0 55%;
+            display: flex;
+            flex-direction: column;
+        }
+        .int-item {
+            padding: 40px 0;
+            border-bottom: 1px solid var(--brand-gray);
+            cursor: pointer;
+        }
+        .int-item-title {
+            font-size: clamp(1.5rem, 3.5vw, 3.5rem);
+            font-weight: 700;
+            color: var(--brand-gray);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            transition: var(--transition);
+        }
+        .int-item-title::before {
+            content: "•";
+            color: transparent;
+            font-size: 1.2em;
+            transition: var(--transition);
+        }
+        .int-item.active .int-item-title, .int-item:hover .int-item-title {
+            color: var(--brand-dark);
+        }
+        .int-item.active .int-item-title::before, .int-item:hover .int-item-title::before {
+            color: var(--brand-blue);
+        }
+        .int-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+            padding-left: 40px;
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .int-item.active .int-tags {
+            height: auto;
+            opacity: 1;
+            margin-top: 30px;
+        }
+        .tag-small {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 16px;
+            border: 1px solid var(--brand-gray);
+            border-radius: 999px;
+            color: var(--brand-text);
+        }
+
+        /* ==========================================================================
+           PROJECTS
+           ========================================================================== */
+        .projects-section {
+            background: var(--brand-light);
+            padding: 140px 0;
+        }
+        .projects-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        .project-card {
+            cursor: pointer;
+        }
+        .project-card:nth-child(even) {
+            margin-top: 160px;
+        }
+        .proj-num {
+            font-size: clamp(60px, 8vw, 100px);
+            font-weight: 300;
+            line-height: 1;
+            margin-bottom: 30px;
+            color: var(--brand-dark);
+            letter-spacing: -0.05em;
+        }
+        .proj-img-wrap {
+            border-radius: 40px;
+            overflow: hidden;
+            position: relative;
+            background: #e2e8f0;
+            width: 100%;
+        }
+        .proj-img-wrap.portrait { aspect-ratio: 4/5; }
+        .proj-img-wrap.square { aspect-ratio: 1/1; }
+        .proj-img-wrap.landscape { aspect-ratio: 16/9; }
+        
+        .proj-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .project-card:hover .proj-img {
+            transform: scale(1.05);
+        }
+        .proj-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(10, 15, 28, 0.1);
+            backdrop-filter: blur(4px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+        .project-card:hover .proj-overlay { opacity: 1; }
+        .proj-btn {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--brand-dark);
+            transform: scale(0.8) translateY(20px);
+            transition: var(--transition);
+        }
+        .project-card:hover .proj-btn {
+            transform: scale(1) translateY(0);
+        }
+        .proj-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 30px;
+        }
+        .proj-meta h3 {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        /* ==========================================================================
+           PRICING, FAQ & CTA
+           ========================================================================== */
+        .pricing-section {
+            background: var(--white);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 20;
+        }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 80px;
+        }
+        .pricing-card {
+            background: var(--brand-light);
+            border-radius: 40px;
+            padding: 50px 40px;
+            transition: var(--transition);
+            border: 1px solid transparent;
+            display: flex;
+            flex-direction: column;
+        }
+        .pricing-card:hover {
+            border-color: var(--brand-blue);
+            transform: translateY(-10px);
+            background: var(--white);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+        }
+        .pricing-card.popular {
+            background: var(--brand-dark);
+            color: var(--white);
+            transform: scale(1.05);
+            border: none;
+        }
+        .pricing-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+            box-shadow: 0 30px 60px rgba(10, 15, 28, 0.2);
+        }
+        .pricing-tier { font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+        .pricing-card.popular .pricing-tier { color: var(--brand-blue); display: flex; justify-content: space-between; align-items: center; }
+        .popular-badge { background: var(--brand-blue); color: var(--white); font-size: 12px; padding: 4px 12px; border-radius: 999px; }
+        .pricing-price { font-size: 54px; font-weight: 800; margin-bottom: 20px; line-height: 1; letter-spacing: -0.03em; }
+        .pricing-price span { font-size: 18px; font-weight: 500; color: var(--brand-text); }
+        .pricing-card.popular .pricing-price span { color: #94a3b8; }
+        .pricing-desc { color: var(--brand-text); font-weight: 500; margin-bottom: 40px; font-size: 16px; line-height: 1.6; }
+        .pricing-card.popular .pricing-desc { color: #94a3b8; }
+        .pricing-features { flex: 1; display: flex; flex-direction: column; gap: 16px; margin-bottom: 50px; }
+        .pricing-features li { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 15px; }
+        .feature-icon { width: 24px; height: 24px; border-radius: 50%; background: rgba(26, 79, 250, 0.1); color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;}
+        .pricing-card.popular .feature-icon { background: rgba(255,255,255,0.1); color: var(--white); }
+        .pricing-btn { width: 100%; padding: 20px; border-radius: 999px; border: 1px solid var(--brand-gray); background: var(--white); font-weight: 700; font-size: 16px; transition: var(--transition); cursor: pointer; }
+        .pricing-btn:hover { background: var(--brand-blue); color: var(--white); border-color: var(--brand-blue); }
+        .pricing-card.popular .pricing-btn { background: var(--brand-blue); color: var(--white); border: none; }
+        .pricing-card.popular .pricing-btn:hover { background: var(--white); color: var(--brand-dark); }
+
+        .faq-section {
+            background: var(--brand-light);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 21;
+        }
+        .faq-container {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--brand-gray);
+            padding: 35px 0;
+            cursor: pointer;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: clamp(1.2rem, 2vw, 1.5rem);
+            font-weight: 700;
+            color: var(--brand-dark);
+            transition: var(--transition);
+        }
+        .faq-item:hover .faq-question { color: var(--brand-blue); }
+        .faq-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 1px solid var(--brand-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+            flex-shrink: 0;
+            margin-left: 20px;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+            background: var(--brand-blue);
+            color: var(--white);
+            border-color: var(--brand-blue);
+        }
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s;
+            opacity: 0;
+            color: var(--brand-text);
+            font-size: 18px;
+            line-height: 1.6;
+            font-weight: 500;
+            padding-right: 60px;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            opacity: 1;
+            margin-top: 20px;
+        }
+
+        .cta-section {
+            background: var(--white);
+            padding: 140px 0;
+            border-radius: 60px 60px 0 0;
+            margin-top: -60px;
+            position: relative;
+            z-index: 22;
+        }
+        .cta-box {
+            background: var(--brand-dark);
+            border-radius: 60px;
+            padding: 120px 60px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-box::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -10%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(26, 79, 250, 0.4) 0%, rgba(10, 15, 28, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .cta-title { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; line-height: 1.1; margin-bottom: 30px; letter-spacing: -0.03em;}
+        .cta-desc { font-size: 20px; color: #94a3b8; max-width: 600px; margin: 0 auto 50px; line-height: 1.6; }
+        .cta-buttons { display: flex; gap: 20px; justify-content: center; }
+        .cta-btn-primary { background: var(--brand-blue); color: var(--white); padding: 20px 40px; border-radius: 999px; font-weight: 700; font-size: 16px; transition: var(--transition); border: 2px solid var(--brand-blue); }
+        .cta-btn-primary:hover { background: transparent; }
+        .cta-btn-secondary { background: transparent; color: var(--white); padding: 20px 40px; border-radius: 999px; font-weight: 700; font-size: 16px; transition: var(--transition); border: 2px solid rgba(255,255,255,0.2); }
+        .cta-btn-secondary:hover { border-color: var(--white); background: var(--white); color: var(--brand-dark); }
+
+        /* ==========================================================================
+           FOOTER
+           ========================================================================== */
+        .footer {
+            background: var(--brand-dark);
+            color: var(--white);
+            padding: 100px 0 40px;
+            margin-top: -60px;
+            border-radius: 60px 60px 0 0;
+            position: relative;
+            z-index: 23;
+        }
+        
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-top: 30px;
+        }
+        .social-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 12px 24px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--white);
+            transition: var(--transition);
+        }
+        .social-btn:hover {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 3fr 1fr 1fr 1.5fr;
+            gap: 60px;
+        }
+        .footer-brand .logo { color: var(--white); }
+        .footer-brand p {
+            color: #94a3b8;
+            margin: 20px 0 30px;
+            line-height: 1.6;
+            max-width: 350px;
+            font-size: 16px;
+        }
+        .newsletter {
+            position: relative;
+            max-width: 350px;
+        }
+        .newsletter input {
+            width: 100%;
+            padding: 16px 24px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white);
+            outline: none;
+            font-family: inherit;
+        }
+        .newsletter input::placeholder { color: #64748b; }
+        .newsletter button {
+            position: absolute;
+            right: 6px;
+            top: 6px;
+            bottom: 6px;
+            width: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--brand-blue);
+            color: var(--white);
+            cursor: pointer;
+        }
+        .footer-col h5 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--white);
+        }
+        .footer-col ul {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .footer-col a, .footer-col li {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: var(--white); }
+        .footer-bottom {
+            margin-top: 80px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+
+        /* ==========================================================================
+           RESPONSIVE OVERRIDES
+           ========================================================================== */
+        @media (max-width: 1024px) {
+            .about-grid, .pricing-grid { grid-template-columns: 1fr; }
+            .about-image { height: 400px; }
+            .pricing-card.popular { transform: scale(1); }
+            .pricing-card.popular:hover { transform: translateY(-10px); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 992px) {
+            .navbar { padding: 0 20px; }
+            .nav-btn { display: none; }
+            .mobile-menu-btn { display: flex; }
+            
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(15px);
+                padding: 30px 20px;
+                margin-top: 15px;
+                border-radius: 24px;
+                border: 1px solid rgba(0,0,0,0.1);
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+                text-align: center;
+                flex-direction: column;
+                
+                /* Modern Dropdown Animation Setup */
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-20px) scale(0.98);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+                pointer-events: none;
+            }
+            .nav-links.active {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+                pointer-events: auto;
+            }
+
+            .nav-links a { 
+                font-size: 18px; 
+                padding: 12px 0; 
+                opacity: 0;
+                transform: translateY(15px);
+                transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+            .nav-links.active a {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            
+            /* Staggered text reveal animations */
+            .nav-links.active a:nth-child(1) { transition-delay: 0.1s; }
+            .nav-links.active a:nth-child(2) { transition-delay: 0.15s; }
+            .nav-links.active a:nth-child(3) { transition-delay: 0.2s; }
+            .nav-links.active a:nth-child(4) { transition-delay: 0.25s; }
+            .nav-links.active a:nth-child(5) { transition-delay: 0.3s; }
+            .nav-links.active a:nth-child(6) { transition-delay: 0.35s; }
+
+            .mobile-only-link {
+                display: inline-flex !important;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                background: var(--brand-blue);
+                color: var(--white) !important;
+                padding: 16px 32px !important;
+                border-radius: 999px;
+                margin-top: 20px;
+                font-weight: 700;
+            }
+
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .int-layout { flex-direction: column; }
+            .int-visual { width: 100%; aspect-ratio: 16/9; }
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 20px; }
+            
+            /* Typography Scaling */
+            .hero-title { font-size: 18vw; }
+            .hero-desc { font-size: 16px; text-align: center; max-width: 100%; }
+            .hero-bottom-grid { flex-direction: column; align-items: center; gap: 30px; margin-top: 20px; }
+            
+            /* Padding and Margins Reductions */
+            .hero-sticky { padding-bottom: 40px; }
+            .section-panel, .pricing-section, .faq-section, .cta-section, .projects-section, .interactive-section {
+                padding: 80px 0;
+                border-radius: 40px 40px 0 0;
+                margin-top: -40px;
+            }
+            .footer {
+                padding: 80px 0 40px;
+                border-radius: 40px 40px 0 0;
+                margin-top: -40px;
+            }
+
+            /* Component Tweaks */
+            .about-grid, .projects-grid, .pricing-grid, .int-layout, .footer-grid { gap: 40px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .about-image { height: 300px; border-radius: 30px; }
+            .pricing-card { padding: 30px 20px; border-radius: 30px; }
+            .cta-box { padding: 60px 20px; border-radius: 30px; }
+            .cta-buttons { flex-direction: column; width: 100%; }
+            .pill-item { padding: 12px 24px; font-size: 18px; }
+            
+            .projects-header { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .project-card:nth-child(even) { margin-top: 0; }
+            
+            .faq-question { font-size: 1.2rem; }
+            .faq-icon { width: 36px; height: 36px; margin-left: 15px; }
+            .faq-answer { padding-right: 0; }
+
+            .footer-grid { grid-template-columns: 1fr; }
+            .footer-bottom { flex-direction: column; gap: 20px; text-align: center; }
+        }
+
+        /* Generic GSAP classes */
+        .gs-fade-up { opacity: 0; visibility: hidden; }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-inner">
+            <a href="index.html" class="logo">
+                <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 48px;">
+            </a>
+            
+            <div class="nav-links">
+                <a href="index.html" class="text-blue">Home</a>
+                <a href="about.html">About Us</a>
+                <a href="services.html">IT Services</a>
+                <a href="blog.html">Blog</a>
+                <a href="contact.html">Contact</a>
+                <a href="login.html" class="mobile-only-link">
+                    Login 
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+            </div>
+            
+            <a href="login.html" class="nav-btn">
+                Login
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+            
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Scroll Container for Hero -> Reveal Sequence -->
+    <div id="hero-scroll-container">
+        <!-- Sticky Wrapper -->
+        <div class="hero-sticky">
+            
+            <!-- Original Hero Content -->
+            <section class="hero container">
+                <div class="hero-bg-glow"></div>
+                <div class="hero-title-wrapper">
+                    <!-- Preserved VISION text structure as requested -->
+                    <h1 class="hero-title">
+                        <span class="char-mask"><span class="hero-char">V</span></span>
+                        <span class="char-mask"><span class="hero-char">I</span></span>
+                        <span class="char-mask"><span class="hero-char">S</span></span>
+                        <span class="char-mask"><span class="hero-char">I</span></span>
+                        <span class="char-mask">
+                            <span class="hero-pill-wrap">
+                                <div class="hero-pill-placeholder"></div>
+                                <div class="hero-pill-o" id="hero-pill"></div>
+                            </span>
+                        </span>
+                        <span class="char-mask"><span class="hero-char">N</span></span>
+                    </h1>
+                </div>
+                <div class="hero-bottom-grid hero-bottom-elements">
+                    <p class="hero-desc">
+                        At Stackly IT Solutions in Salem, we deliver comprehensive technology solutions that propel businesses forward. From custom software to advanced cloud infrastructure.
+                    </p>
+                    <a href="404.html" class="link-with-icon">
+                        Get Started Now
+                        <div class="btn-circle">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- The Absolute Mask (Takes over the Pill on Scroll) -->
+            <div class="absolute-reveal-mask" id="reveal-mask">
+                <div class="marquee-bg">
+                    <div class="marquee-bg-track">
+                        <span>INNOVATIVE IT * SCALABLE * SECURE * INNOVATIVE IT * SCALABLE * SECURE * </span>
+                    </div>
+                </div>
+                <img src="images/hero image.webp" class="fixed-reveal-img" alt="Server Room / IT Tech">
+                <div class="fixed-reveal-text">
+                    <h2>Empowering Your <br> <span class="text-blue">Vision</span> Through <br> Powerful IT Solutions</h2>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="section-panel">
+        <div class="container">
+            <div class="about-grid">
+                <div class="gs-fade-up">
+                    <div class="about-img-wrap">
+                        <img src="images/pexels-cottonbro-8468513.webp" alt="Technology Team" class="about-image">
+                    </div>
+                </div>
+                <div class="about-content">
+                    <div class="tag gs-fade-up">About Stackly</div>
+                    <h3 class="gs-fade-up">Our team of developers, engineers, and strategists driven by <span class="text-blue">one purpose — to engineer robust IT solutions.</span></h3>
+                    <p class="gs-fade-up">Headquartered in the heart of Salem, Stackly IT Solutions provides end-to-end technology services. Every project we take on is fueled by innovation, guided by precision, and secured by top-tier infrastructure.</p>
+                    
+                    <a href="404.html" class="link-with-icon gs-fade-up" style="border-bottom: 2px solid var(--brand-dark); padding-bottom: 5px;">
+                        Discover Our Solutions
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+
+                    <div class="stats-grid gs-fade-up">
+                        <div class="stat-card interactive">
+                            <div class="stat-icon">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+                            </div>
+                            <div class="stat-number">98%</div>
+                            <div class="stat-label">UPTIME & RELIABILITY</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-number">250+</div>
+                            <div class="stat-label">IT PROJECTS DEPLOYED GLOBALLY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Grid Area -->
+    <section class="services-area">
+        <!-- Marquee Pills -->
+        <div class="pill-marquee">
+            <div class="pill-track">
+                <div class="pill-item">Cloud Infrastructure</div>
+                <div class="pill-item">Custom Software</div>
+                <div class="pill-item">Cybersecurity</div>
+                <div class="pill-item">IT Consulting</div>
+                <div class="pill-item">Managed Services</div>
+                <div class="pill-item">Cloud Infrastructure</div>
+                <div class="pill-item">Custom Software</div>
+                <div class="pill-item">Cybersecurity</div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="services-grid">
+                <div class="service-box gs-fade-up">
+                    <svg class="service-icon" viewBox="0 0 100 100" fill="currentColor"><path d="M30,70 C10,70 10,30 30,30 C50,30 50,70 70,70 C90,70 90,30 70,30" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+                    <h4>Custom Software</h4>
+                    <p>DEVELOPMENT</p>
+                </div>
+                <div class="service-box gs-fade-up" style="transition-delay: 0.1s;">
+                    <div class="service-icon flex" style="display:flex; justify-content:center; align-items:center;">
+                        <div style="width: 50px; height: 50px; border: 8px solid currentColor; border-radius: 50%; position: relative;">
+                            <div style="position: absolute; inset: 6px; background: currentColor; border-radius: 50%;"></div>
+                        </div>
+                    </div>
+                    <h4>Cloud Solutions</h4>
+                    <p>INFRASTRUCTURE</p>
+                </div>
+                <div class="service-box gs-fade-up" style="transition-delay: 0.2s;">
+                    <svg class="service-icon" viewBox="0 0 100 100" fill="currentColor"><circle cx="50" cy="50" r="30" stroke="currentColor" stroke-width="10" fill="none"/><circle cx="50" cy="50" r="12"/></svg>
+                    <h4>Cybersecurity</h4>
+                    <p>DATA PROTECTION</p>
+                </div>
+                <div class="service-box gs-fade-up">
+                    <svg class="service-icon" viewBox="0 0 100 100" fill="currentColor">
+                        <rect x="25" y="20" width="15" height="60" rx="8"/>
+                        <path d="M50,20 L80,80 L80,20" stroke="currentColor" stroke-width="12" fill="none" stroke-linejoin="round"/>
+                    </svg>
+                    <h4>IT Consulting</h4>
+                    <p>TECH STRATEGY</p>
+                </div>
+                <div class="service-box gs-fade-up" style="transition-delay: 0.1s;">
+                    <div class="service-icon flex" style="display:flex; flex-wrap:wrap; gap:6px; justify-content:center; align-items:center; width:60px;">
+                        <div style="width:24px; height:24px; background:currentColor; border-radius:50%;"></div>
+                        <div style="width:24px; height:24px; background:currentColor; border-radius:50%;"></div>
+                        <div style="width:24px; height:24px; background:currentColor; border-radius:50%;"></div>
+                        <div style="width:24px; height:24px; background:currentColor; border-radius:50%;"></div>
+                    </div>
+                    <h4>Web & App Dev</h4>
+                    <p>DIGITAL PRODUCTS</p>
+                </div>
+                <div class="service-box gs-fade-up" style="transition-delay: 0.2s;">
+                     <svg class="service-icon" viewBox="0 0 100 100" fill="currentColor"><path d="M30,70 C10,70 10,30 30,30 C50,30 50,70 70,70 C90,70 90,30 70,30" stroke="currentColor" stroke-width="10" fill="none" stroke-linecap="round"/></svg>
+                    <h4>Managed IT</h4>
+                    <p>24/7 SUPPORT</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Services List -->
+    <section class="interactive-section">
+        <div class="container">
+            <div class="int-header gs-fade-up">
+                <div class="tag mb-4">Our Core Competencies</div>
+                <h2 class="h2-title mt-4">Innovation Meets <span class="text-blue">Reliability.</span></h2>
+            </div>
+            
+            <div class="int-layout">
+                <div class="int-visual gs-fade-up">
+                    <div class="int-images">
+                        <div class="int-img active" style="background: var(--brand-blue); display:flex; align-items:center; justify-content:center;">
+                            <div style="width:120px; height:120px; border:2px solid white; border-radius:30px; transform:rotate(15deg);"></div>
+                        </div>
+                        <img src="images/pexels-olia-danilevich-4974912.webp" class="int-img">
+                        <img src="images/pexels-mikhail-nilov-7988125.webp" class="int-img">
+                        <img src="images/pexels-mikhail-nilov-7988208.webp" class="int-img">
+                    </div>
+                    <div class="int-btn">
+                        View Technical Specs
+                        <div class="btn-circle" style="width:36px; height:36px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                    </div>
+                </div>
+                
+                <div class="int-list gs-fade-up">
+                    <div class="int-item active">
+                        <div class="int-item-title">Software Development</div>
+                        <div class="int-tags">
+                            <span class="tag-small">CUSTOM APPS</span>
+                            <span class="tag-small">ERP & CRM</span>
+                            <span class="tag-small">API INTEGRATION</span>
+                            <span class="tag-small">SYSTEM ARCHITECTURE</span>
+                        </div>
+                    </div>
+                    <div class="int-item">
+                        <div class="int-item-title">Cloud & Infrastructure</div>
+                        <div class="int-tags">
+                            <span class="tag-small">AWS & AZURE</span>
+                            <span class="tag-small">MIGRATION</span>
+                            <span class="tag-small">DEVOPS</span>
+                        </div>
+                    </div>
+                    <div class="int-item">
+                        <div class="int-item-title">Cybersecurity Services</div>
+                        <div class="int-tags">
+                            <span class="tag-small">SECURITY AUDIT</span>
+                            <span class="tag-small">COMPLIANCE</span>
+                            <span class="tag-small">THREAT PROTECTION</span>
+                        </div>
+                    </div>
+                    <div class="int-item">
+                        <div class="int-item-title">IT Consulting & Support</div>
+                        <div class="int-tags">
+                            <span class="tag-small">TECH STRATEGY</span>
+                            <span class="tag-small">HELP DESK</span>
+                            <span class="tag-small">24/7 SUPPORT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="projects-header gs-fade-up">
+                <div>
+                    <div class="tag mb-4">Case Studies</div>
+                    <h2 class="h2-title mt-4">Our Latest <span class="text-blue">Deployments.</span></h2>
+                </div>
+                <a href="404.html" class="link-with-icon">
+                    View All Case Studies
+                    <div class="btn-circle bg-white">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </div>
+                </a>
+            </div>
+
+            <div class="projects-grid">
+                <!-- Project 01 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">01</div>
+                    <div class="proj-img-wrap portrait">
+                        <img src="images/pexels-shoper-pl-550490863-17485350.webp" class="proj-img proj-parallax" alt="Salem Smart City ERP">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>Salem Smart City ERP</h3>
+                        <span class="tag-small">Enterprise Software</span>
+                    </div>
+                </div>
+
+                <!-- Project 02 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">02</div>
+                    <div class="proj-img-wrap square">
+                        <img src="images/pexels-pixabay-265087.webp" class="proj-img proj-parallax" alt="HealthTech Cloud">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>HealthTech Cloud</h3>
+                        <span class="tag-small">Cloud Migration</span>
+                    </div>
+                </div>
+
+                <!-- Project 03 -->
+                <div class="project-card gs-fade-up">
+                    <div class="proj-num">03</div>
+                    <div class="proj-img-wrap landscape">
+                        <img src="images/pexels-shoper-pl-550490863-17485350.webp" class="proj-img proj-parallax" alt="FinSecure Platform">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>FinSecure Platform</h3>
+                        <span class="tag-small">Cybersecurity</span>
+                    </div>
+                </div>
+
+                 <!-- Project 04 -->
+                 <div class="project-card gs-fade-up">
+                    <div class="proj-num">04</div>
+                    <div class="proj-img-wrap square">
+                        <img src="images/pexels-sora-shimazaki-5926382.webp" class="proj-img proj-parallax" alt="RetailTech POS">
+                        <div class="proj-overlay">
+                            <div class="proj-btn"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+                        </div>
+                    </div>
+                    <div class="proj-meta">
+                        <h3>RetailTech POS</h3>
+                        <span class="tag-small">Web Application</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section">
+        <div class="container">
+            <div class="int-header gs-fade-up">
+                <div class="tag mb-4">Transparent Pricing</div>
+                <h2 class="h2-title mt-4">Scalable Plans for <br><span class="text-blue">Ambitious Teams.</span></h2>
+            </div>
+            
+            <div class="pricing-grid">
+                <!-- Tier 1 -->
+                <div class="pricing-card gs-fade-up">
+                    <div class="pricing-tier">Starter IT</div>
+                    <div class="pricing-price">$499<span>/mo</span></div>
+                    <p class="pricing-desc">Perfect for small businesses needing reliable foundational IT support and cloud backups.</p>
+                    <ul class="pricing-features">
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Remote Help Desk (9-5)</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Basic Cloud Backup</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Antivirus & Endpoint Setup</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Network Monitoring</li>
+                    </ul>
+                    <button class="pricing-btn">Get Started</button>
+                </div>
+
+                <!-- Tier 2 -->
+                <div class="pricing-card popular gs-fade-up" style="transition-delay: 0.1s;">
+                    <div class="pricing-tier">Professional <span class="popular-badge">Most Popular</span></div>
+                    <div class="pricing-price">$1,299<span>/mo</span></div>
+                    <p class="pricing-desc">Comprehensive managed IT and cybersecurity solutions for growing companies.</p>
+                    <ul class="pricing-features">
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> 24/7 Priority Support</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Advanced Cybersecurity</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Cloud Infrastructure Setup</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Automated Daily Backups</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Monthly IT Strategy Call</li>
+                    </ul>
+                    <button class="pricing-btn">Choose Professional</button>
+                </div>
+
+                <!-- Tier 3 -->
+                <div class="pricing-card gs-fade-up" style="transition-delay: 0.2s;">
+                    <div class="pricing-tier">Enterprise</div>
+                    <div class="pricing-price">Custom</div>
+                    <p class="pricing-desc">Dedicated engineering teams and full digital transformation for large-scale operations.</p>
+                    <ul class="pricing-features">
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Dedicated Technical Account Manager</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Custom Software Development</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Legacy System Migration</li>
+                        <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Advanced Compliance (HIPAA/SOC2)</li>
+                    </ul>
+                    <button class="pricing-btn">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <div class="int-header gs-fade-up" style="margin-bottom: 40px;">
+                <div class="tag mb-4">Answers</div>
+                <h2 class="h2-title mt-4">Frequently Asked <span class="text-blue">Questions.</span></h2>
+            </div>
+            
+            <div class="faq-container gs-fade-up">
+                <div class="faq-item active">
+                    <div class="faq-question">
+                        What IT services do you offer?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        Stackly IT Solutions provides end-to-end technology services including custom software development, cloud infrastructure migration, advanced cybersecurity, network management, and 24/7 managed IT support.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How do you ensure data security?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        We deploy multi-layered cybersecurity protocols including endpoint detection, zero-trust architecture, automated encrypted backups, and regular vulnerability audits to ensure your sensitive business data is completely protected.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        Do you offer 24/7 support?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        Yes, our Professional and Enterprise plans include 24/7 priority help desk support and continuous network monitoring to ensure maximum uptime and immediate incident response.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">
+                        How long does a cloud migration take?
+                        <div class="faq-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg></div>
+                    </div>
+                    <div class="faq-answer">
+                        The timeline depends entirely on the size and complexity of your legacy systems. A basic email and file migration can take a few days, whereas a full infrastructure migration to AWS or Azure might take several weeks. We provide a precise timeline after our initial technical audit.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modern CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box gs-fade-up">
+                <h2 class="cta-title">Ready to Transform<br>Your IT Infrastructure?</h2>
+                <p class="cta-desc">Join hundreds of forward-thinking companies that rely on Stackly to secure, scale, and innovate their digital workspaces.</p>
+                <div class="cta-buttons">
+                    <a href="404.html" class="cta-btn-primary">Schedule a Free Audit</a>
+                    <a href="404.html" class="cta-btn-secondary">View our Case Studies</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Premium Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid gs-fade-up">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 60px;">
+                    </a>
+                    <p>Stackly IT Solutions delivers comprehensive technology services and enterprise-grade consulting to businesses in Salem and beyond.</p>
+                    <div class="newsletter">
+                        <input type="email" placeholder="Subscribe to our newsletter...">
+                        <button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                    </div>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Company</h5>
+                    <ul>
+                        <li><a href="404.html">About Us</a></li>
+                        <li><a href="404.html">Our Vision</a></li>
+                        <li><a href="404.html">Careers</a></li>
+                        <li><a href="404.html">Tech Blog</a></li>
+                        <li><a href="404.html">Contact</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Solutions</h5>
+                    <ul>
+                        <li><a href="404.html">Cloud Migration</a></li>
+                        <li><a href="404.html">Cybersecurity</a></li>
+                        <li><a href="404.html">Managed Services</a></li>
+                        <li><a href="404.html">Custom Software</a></li>
+                        <li><a href="404.html">IT Consulting</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-col">
+                    <h5>Get in Touch</h5>
+                    <ul>
+                        <li>IT Park, Omalur Main Road,<br>Salem, Tamil Nadu 636004</li>
+                        <li style="margin-top: 10px;"><a href="mailto:hello@stacklyit.com" style="color: var(--white); font-weight: 700;">hello@stacklyit.com</a></li>
+                        <li><a href="tel:+919876543210" style="color: var(--white); font-weight: 700;">+91 98765 43210</a></li>
+                        <li>
+                            <div class="social-links">
+                                <a href="404.html" class="social-btn" aria-label="LinkedIn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Twitter">
+                                    <span style="font-size: 14px; font-weight: bold;">𝕏</span>
+                                </a>
+                                <a href="404.html" class="social-btn" aria-label="Facebook">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <div>© 2026 Stackly IT Solutions. All rights reserved.</div>
+                <div>
+                    <a href="404.html" style="margin-right: 20px;">Privacy Policy</a>
+                    <a href="404.html">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <script>
+        // 0. Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+        });
+
+        // 1. Lenis Smooth Scrolling Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true,
+        })
+
+        function raf(time) {
+            lenis.raf(time)
+            requestAnimationFrame(raf)
+        }
+        requestAnimationFrame(raf)
+
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time)=>{ lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        // 2. Initial Hero Entrance Animation
+        lenis.stop();
+
+        const heroTl = gsap.timeline({ 
+            delay: 0.1,
+            onComplete: () => {
+                initRevealMask();
+                lenis.start();
+            }
+        });
+        
+        // Slide up characters
+        heroTl.fromTo('.hero-char, .hero-pill-wrap', 
+            { y: '110%', rotation: 8, transformOrigin: "0% 100%" },
+            { y: '0%', rotation: 0, duration: 1.2, stagger: 0.06, ease: "power4.out" }
+        );
+
+        // Expand 'O' pill
+        heroTl.fromTo('.hero-pill-o', 
+            { width: '0em' },
+            { width: '100%', duration: 1.2, ease: "power3.inOut" },
+            "-=0.7"
+        );
+
+        // Fade in bottom text
+        heroTl.fromTo('.hero-bottom-elements > *', 
+            { y: 40, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 1, stagger: 0.2, ease: "power3.out" },
+            "-=0.8"
+        );
+
+        // 3. The Seamless "VISION" -> Full Screen Reveal Logic
+        const heroPill = document.getElementById('hero-pill');
+        const absoluteMask = document.getElementById('reveal-mask');
+        const heroStickyContainer = document.querySelector('.hero-sticky');
+
+        function initRevealMask() {
+            const pillRect = heroPill.getBoundingClientRect();
+            const containerRect = heroStickyContainer.getBoundingClientRect();
+            
+            gsap.set(absoluteMask, {
+                left: pillRect.left - containerRect.left,
+                top: pillRect.top - containerRect.top,
+                width: pillRect.width,
+                height: pillRect.height,
+                borderWidth: parseFloat(getComputedStyle(heroPill).borderWidth),
+                display: 'none'
+            });
+            ScrollTrigger.refresh();
+        }
+
+        window.addEventListener('resize', () => {
+            if(heroPill.style.opacity !== '0') {
+                initRevealMask();
+            }
+        });
+
+        // 4. ScrollTrigger Animation (The Mask Expansion)
+        const scrollRevealTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: '#hero-scroll-container',
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1,
+                onEnter: () => {
+                    gsap.set(absoluteMask, { display: 'flex' });
+                    gsap.set(heroPill, { opacity: 0 });
+                },
+                onLeaveBack: () => {
+                    gsap.set(absoluteMask, { display: 'none' });
+                    gsap.set(heroPill, { opacity: 1 });
+                }
+            }
+        });
+
+        // Use 100vw/100vh to ensure mask covers the full screen correctly
+        scrollRevealTl.to(absoluteMask, {
+            left: 0,
+            top: 0,
+            width: '100vw',
+            height: '100vh',
+            borderWidth: 0,
+            borderRadius: '0px',
+            ease: "power2.inOut",
+            duration: 1
+        }, 0);
+
+        scrollRevealTl.to('.hero-char', {
+            opacity: 0,
+            x: (index) => index < 4 ? -80 : 80,
+            ease: "power2.inOut",
+            duration: 0.6
+        }, 0);
+
+        scrollRevealTl.to('.hero-bottom-elements, .hero-bg-glow', {
+            opacity: 0,
+            y: -40,
+            ease: "power2.inOut",
+            duration: 0.6
+        }, 0);
+
+        scrollRevealTl.to('.fixed-reveal-img', {
+            opacity: 1,
+            scale: 1,
+            ease: "power2.inOut",
+            duration: 0.8
+        }, 0.2);
+
+        scrollRevealTl.to('.fixed-reveal-text, .marquee-bg', {
+            opacity: 1,
+            ease: "power2.out",
+            duration: 0.4
+        }, 0.6);
+
+        scrollRevealTl.fromTo('.fixed-reveal-text h2', 
+            { scale: 1.15 },
+            { scale: 1, ease: "power2.out", duration: 0.4 },
+            0.6
+        );
+
+        // 5. Generic Fade Ups
+        gsap.utils.toArray('.gs-fade-up').forEach(elem => {
+            gsap.fromTo(elem, 
+                { y: 50, autoAlpha: 0 },
+                {
+                    y: 0, 
+                    autoAlpha: 1, 
+                    duration: 1, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse"
+                    }
+                }
+            );
+        });
+
+        // 6. Project Image Parallax
+        gsap.utils.toArray('.proj-parallax').forEach(img => {
+            gsap.to(img, {
+                yPercent: 15,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: img.parentElement,
+                    start: "top bottom", 
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+        });
+
+        // 7. Interactive Services Hover
+        const intItems = document.querySelectorAll('.int-item');
+        const intImages = document.querySelectorAll('.int-img');
+
+        intItems.forEach((item, index) => {
+            item.addEventListener('mouseenter', () => {
+                intItems.forEach(i => i.classList.remove('active'));
+                intImages.forEach(img => img.classList.remove('active'));
+                
+                item.classList.add('active');
+                if(intImages[index]) {
+                    intImages[index].classList.add('active');
+                }
+            });
+        });
+
+        // 8. FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(faq => faq.classList.remove('active'));
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
