@@ -662,6 +662,21 @@
             color: var(--brand-text);
         }
 
+        .int-item-img-mobile {
+            display: none;
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .int-item-img-mobile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
         /* ==========================================================================
            PROJECTS
            ========================================================================== */
@@ -806,7 +821,7 @@
         .pricing-features li { display: flex; align-items: center; gap: 12px; font-weight: 600; font-size: 15px; }
         .feature-icon { width: 24px; height: 24px; border-radius: 50%; background: rgba(26, 79, 250, 0.1); color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0;}
         .pricing-card.popular .feature-icon { background: rgba(255,255,255,0.1); color: var(--white); }
-        .pricing-btn { width: 100%; padding: 20px; border-radius: 999px; border: 1px solid var(--brand-gray); background: var(--white); font-weight: 700; font-size: 16px; transition: var(--transition); cursor: pointer; }
+        .pricing-btn { display: block; width: 100%; text-align: center; padding: 20px; border-radius: 999px; border: 1px solid var(--brand-gray); background: var(--white); font-weight: 700; font-size: 16px; transition: var(--transition); cursor: pointer; }
         .pricing-btn:hover { background: var(--brand-blue); color: var(--white); border-color: var(--brand-blue); }
         .pricing-card.popular .pricing-btn { background: var(--brand-blue); color: var(--white); border: none; }
         .pricing-card.popular .pricing-btn:hover { background: var(--white); color: var(--brand-dark); }
@@ -1093,8 +1108,14 @@
             }
 
             .services-grid { grid-template-columns: repeat(2, 1fr); }
-            .int-layout { flex-direction: column; }
-            .int-visual { width: 100%; aspect-ratio: 16/9; }
+            .int-layout { flex-direction: column; gap: 40px; }
+            .int-visual { display: none; }
+            .int-list { width: 100%; flex: none; display: grid; grid-template-columns: 1fr; gap: 30px; }
+            .int-item { padding: 30px; border: 1px solid var(--brand-gray); border-radius: 30px; background: var(--white); cursor: default; }
+            .int-item-title { font-size: 1.8rem; color: var(--brand-dark); }
+            .int-item-title::before { display: none; }
+            .int-tags { height: auto; opacity: 1; margin-top: 20px; padding-left: 0; display: flex; transform: none; }
+            .int-item-img-mobile { display: block; }
         }
 
         @media (max-width: 768px) {
@@ -1121,6 +1142,7 @@
             /* Component Tweaks */
             .about-grid, .projects-grid, .pricing-grid, .int-layout, .footer-grid { gap: 40px; }
             .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            .projects-grid { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: 1fr; }
             .about-image { height: 300px; border-radius: 30px; }
             .pricing-card { padding: 30px 20px; border-radius: 30px; }
@@ -1272,19 +1294,7 @@
 
     <!-- Services Grid Area -->
     <section class="services-area">
-        <!-- Marquee Pills -->
-        <div class="pill-marquee">
-            <div class="pill-track">
-                <div class="pill-item">Cloud Infrastructure</div>
-                <div class="pill-item">Custom Software</div>
-                <div class="pill-item">Cybersecurity</div>
-                <div class="pill-item">IT Consulting</div>
-                <div class="pill-item">Managed Services</div>
-                <div class="pill-item">Cloud Infrastructure</div>
-                <div class="pill-item">Custom Software</div>
-                <div class="pill-item">Cybersecurity</div>
-            </div>
-        </div>
+      
 
         <div class="container">
             <div class="services-grid">
@@ -1360,6 +1370,11 @@
                 
                 <div class="int-list gs-fade-up">
                     <div class="int-item active">
+                        <div class="int-item-img-mobile">
+                            <div style="width:100%; height:100%; background: var(--brand-blue); display:flex; align-items:center; justify-content:center;">
+                                <div style="width:100px; height:100px; border:2px solid white; border-radius:24px; transform:rotate(15deg);"></div>
+                            </div>
+                        </div>
                         <div class="int-item-title">Software Development</div>
                         <div class="int-tags">
                             <span class="tag-small">CUSTOM APPS</span>
@@ -1369,6 +1384,9 @@
                         </div>
                     </div>
                     <div class="int-item">
+                        <div class="int-item-img-mobile">
+                            <img src="images/pexels-olia-danilevich-4974912.webp" alt="Cloud & Infrastructure">
+                        </div>
                         <div class="int-item-title">Cloud & Infrastructure</div>
                         <div class="int-tags">
                             <span class="tag-small">AWS & AZURE</span>
@@ -1377,6 +1395,9 @@
                         </div>
                     </div>
                     <div class="int-item">
+                        <div class="int-item-img-mobile">
+                            <img src="images/pexels-mikhail-nilov-7988125.webp" alt="Cybersecurity Services">
+                        </div>
                         <div class="int-item-title">Cybersecurity Services</div>
                         <div class="int-tags">
                             <span class="tag-small">SECURITY AUDIT</span>
@@ -1385,6 +1406,9 @@
                         </div>
                     </div>
                     <div class="int-item">
+                        <div class="int-item-img-mobile">
+                            <img src="images/pexels-mikhail-nilov-7988208.webp" alt="IT Consulting & Support">
+                        </div>
                         <div class="int-item-title">IT Consulting & Support</div>
                         <div class="int-tags">
                             <span class="tag-small">TECH STRATEGY</span>
@@ -1497,7 +1521,7 @@
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Antivirus & Endpoint Setup</li>
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Network Monitoring</li>
                     </ul>
-                    <button class="pricing-btn">Get Started</button>
+                    <a href="404.html" class="pricing-btn">Get Started</a>
                 </div>
 
                 <!-- Tier 2 -->
@@ -1512,7 +1536,7 @@
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Automated Daily Backups</li>
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Monthly IT Strategy Call</li>
                     </ul>
-                    <button class="pricing-btn">Choose Professional</button>
+                    <a href="404.html" class="pricing-btn">Choose Professional</a>
                 </div>
 
                 <!-- Tier 3 -->
@@ -1526,7 +1550,7 @@
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Legacy System Migration</li>
                         <li><div class="feature-icon"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg></div> Advanced Compliance (HIPAA/SOC2)</li>
                     </ul>
-                    <button class="pricing-btn">Contact Sales</button>
+                    <a href="404.html" class="pricing-btn">Contact Sales</a>
                 </div>
             </div>
         </div>
@@ -1604,10 +1628,10 @@
                         <img src="images/blue-logo.webp" alt="Stackly Logo" style="height: 60px;">
                     </a>
                     <p>Stackly IT Solutions delivers comprehensive technology services and enterprise-grade consulting to businesses in Salem and beyond.</p>
-                    <div class="newsletter">
-                        <input type="email" placeholder="Subscribe to our newsletter...">
-                        <button><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
-                    </div>
+                    <form class="newsletter" onsubmit="event.preventDefault(); window.location.href='404.html'">
+                        <input type="email" placeholder="Subscribe to our newsletter..." required>
+                        <button type="submit"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg></button>
+                    </form>
                 </div>
 
                 <div class="footer-col">
